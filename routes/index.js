@@ -1,20 +1,27 @@
 import { Router } from "express";
-import userRouter from "./userRoute.js";
-// import profileRouter from "./profileRoute.js";
-const router = Router();
-const routes = [
-  {
-    route: "/user",
-    router: userRouter,
-  },
-  // {
-  //   route: "/todo",
-  //   router: profileRouter,
-  // },
-];
+import userRoute from "./userRoute.js";
 
-routes.map((route) => {
-  router.use(route.route, route.router);
-});
+import adminRoute from "./adminRoute.js";
+
+const router = Router();
+
+router.use("/user", userRoute);
+
+router.use("/adimn", adminRoute);
+
+// const routesConfig = [
+//   {
+//     path: "/user",
+//     router: userRoute,
+//   },
+//   {
+//     path: "/doctor",
+//     router: doctorRoute,
+//   },
+// ];
+// for (let index = 0; index < routesConfig.length; index++) {
+//   const route = routesConfig[index];
+//   router.use(route.path, route.router);
+// }
 
 export default router;

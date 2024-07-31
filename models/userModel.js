@@ -1,13 +1,19 @@
 import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: fals },
     password: { type: String, required: true },
+    resetpassowrdlink: { type: String, default: null },
+    resetPasswordExpires: { type: Date, default: null },
+    isDoctor: { type: Boolean, default: false },
+    isAdmin: { type: Boolean, default: false },
+    seennotifications: { type: Array, default: [] },
+    unseennotifications: { type: Array, default: [] },
   },
   { timestamps: true }
 );
 
-const UserModal = mongoose.model("user", UserSchema);
-export default UserModal;
+const userModal = mongoose.model("user", userSchema);
+export default userModal;

@@ -7,7 +7,7 @@ import { ConnectDb } from "./config/connectdb.js";
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 8001;
+const port = process.env.PORT || 5000;
 
 //middlewere
 app.use(express.json());
