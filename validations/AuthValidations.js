@@ -31,13 +31,13 @@ const userLoginSchema = joi.object({
 });
 
 const forgotpasswordschema = joi.object({
-  email: joi.string().required().email(),
-  resetpassowrdlink: joi.string().required(),
-  resetPasswordExpires: joi.date().required(),
+  email: joi
+    .string()
+    .required()
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } }),
 });
 
 const resetpasswordSchema = joi.object({
-  resetpassowrdlink: joi.string().required(),
   password: joi.string().required(),
 });
 

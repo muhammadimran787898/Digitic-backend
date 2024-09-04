@@ -1,13 +1,9 @@
 import { Router } from "express";
 import userRoute from "./userRoute.js";
 
-import adminRoute from "./adminRoute.js";
-
 const router = Router();
 
 router.use("/user", userRoute);
-
-router.use("/adimn", adminRoute);
 
 // const routesConfig = [
 //   {

@@ -1,6 +1,5 @@
 import express from "express";
 import authenticateToken from "../middleware/requireAuth.js";
-
 import SchemaValidator from "../middleware/validator.js";
 import {
   userRegisterschema,
@@ -8,7 +7,6 @@ import {
   resetpasswordSchema,
   userLoginSchema,
 } from "../validations/AuthValidations.js";
-import { DoctorValidations } from "../validations/DoctorValidations.js";
 
 import {
   register,
@@ -16,10 +14,6 @@ import {
   userDetail,
   forgotpassword,
   resetpassword,
-  Applydoctor,
-  notificationseen,
-  deletenotification,
-  approvedDoctor,
 } from "../controllers/userController.js";
 
 const userRoute = express.Router();
@@ -29,6 +23,9 @@ userRoute.post("/login", SchemaValidator(userLoginSchema), login);
 userRoute.get("/userdetail", authenticateToken, userDetail);
 userRoute.post(
   "/forgotpassword",
+  (req, res) => {
+    console.log("hello");
+  },
   SchemaValidator(forgotpasswordschema),
   forgotpassword
 );
@@ -37,19 +34,5 @@ userRoute.post(
   SchemaValidator(resetpasswordSchema),
   resetpassword
 );
-
-///////////////////////Doctor//////////////////////////
-userRoute.post(
-  "/applydoctor",
-
-  authenticateToken,
-  SchemaValidator(DoctorValidations),
-  Applydoctor
-);
-
-userRoute.get("/approvedDoctor", authenticateToken, approvedDoctor);
-
-userRoute.post("/notificationseen", authenticateToken, notificationseen);
-userRoute.post("/deleteallnotification", authenticateToken, deletenotification);
 
 export default userRoute;

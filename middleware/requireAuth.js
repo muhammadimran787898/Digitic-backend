@@ -12,7 +12,8 @@ export default async function authenticateToken(req, res, next) {
         return res.status(403).json({ message: err });
       }
 
-      req.user = user;
+      const { name, id } = req;
+      req.user = { name, id };
       next();
     });
   } catch (error) {
