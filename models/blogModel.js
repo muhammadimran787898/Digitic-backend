@@ -55,3 +55,6 @@ const blogSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+const blogModal = mongoose.model("blog", blogSchema);
+export default blogModal;

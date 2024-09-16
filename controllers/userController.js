@@ -2,6 +2,9 @@ import bcrypt from "bcrypt";
 import userModal from "../models/userModel.js";
 import tokenGenarate from "../util/jwt.js";
 import sendEmail from "../util/mailer.js";
+import RefreshtokenGenarate from ".././util/refreshtoken.js";
+import AccessTokenGenarate from ".././util/accessToken.js";
+import cookieParser from "cookie-parser";
 import { uuid } from "uuidv4";
 
 //register
@@ -52,6 +55,7 @@ const login = async (req, res) => {
       }
 
       const token = tokenGenarate(user._id);
+
       const userWithoutSensitiveFields = await userModal
         .findOne({ email })
         .select("-password");
