@@ -21,6 +21,6 @@ blogRoute.delete("/delete", requireAuth, isAdmin, deleteblog);
 blogRoute.put("/update", requireAuth, isAdmin, updateblog);
 blogRoute.put("/likes", requireAuth, likesblog);
 blogRoute.put("/dislike", requireAuth, dislikeblog);
-blogRoute.post("/uploadimages", requireAuth, uploadImages);
+blogRoute.post("/uploadimages", requireAuth, isAdmin, uploadImages);
 
 export default blogRoute;
