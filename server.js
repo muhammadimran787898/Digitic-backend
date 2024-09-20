@@ -8,10 +8,25 @@ import morgan from "morgan";
 import compression from "compression";
 import winston from "winston";
 import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
+import swaggerJsDoc from "swagger-jsdoc";
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 5001;
+const port = 5001 || process.env.PORT;
+
+// Swagger options
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "DIGITIC",
+      version: "1.0.0",
+      description: "A simple Express API",
+    },
+  },
+  apis: ["./routes/*.js"],
+};
 
 // Middlewares
 
@@ -29,13 +44,17 @@ app.use((err, req, res, next) => {
 
 // Swagger middleware to serve documentation
 
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // Your application routes
 app.use("/api/v1", router);
 
+// Swagger UI middleware
+
 // Route not found
-app.use("*", (req, res) => {
-  res.status(404).json({ message: "Route not found" });
-});
+// app.use("*", (req, res) => {
+//   res.status(404).json({ message: "Route not found" });
+// });
 
 ConnectDb();
 
@@ -48,8 +67,9 @@ server.on("error", (error) => {
   if (error.code === "EADDRINUSE") {
     console.error(`Port ${port} is already in use.`);
 
-    const server = app.listen(port + 1, () => {
-      console.log(`Server is running on port ${port + 1}`);
+    const server = app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+      console.log(`Swagger UI available on http://localhost:${PORT}/api-docs`);
     });
     process.exit(1); // Exit the application
   } else {
